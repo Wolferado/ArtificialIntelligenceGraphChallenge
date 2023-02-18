@@ -10,9 +10,9 @@ namespace ArtificialIntelligenceGraphChallenge
     internal class Status
     {
         // Iepriekšējais stāvoklis grafam.
-        private Status? previousStatus;
+        private List<Status> previousStatuses;
         // Nākamais stāvoklis grafam.
-        private Status? nextStatus;
+        private List<Status> nextStatuses;
 
         // Lāpas degšanas laiks, kas tika izmantots.
         private int timeSpent = 0;
@@ -36,10 +36,10 @@ namespace ArtificialIntelligenceGraphChallenge
         /// Constructor for the Status class, that takes existing Status as a parameter.
         /// </summary>
         /// <param name="status">Status that exists and would be used to get values for the new one.</param>
-        public Status(Status? status)
+        public Status(Status status)
         {
-            status.nextStatus = this;
-            this.previousStatus = status;
+            status.nextStatuses.Add(this);
+            previousStatuses.Add(status);
             this.timeSpent = status.timeSpent;
             this.adventurersWaiting = new List<Adventurer>(status.adventurersWaiting);
             this.adventurersCrossed = new List<Adventurer>(status.adventurersCrossed);
@@ -56,14 +56,17 @@ namespace ArtificialIntelligenceGraphChallenge
             return timeSpent;
         }
 
-        public string GetNextStatus()
+        public void GetNextStatus()
         {
-            return nextStatus.GetStatusInfo();
+            foreach (var status in nextStatuses)
+            {
+                Console.Write(status.GetStatusInfo());
+            }
         }
 
         public void SetNextStatus(Status status)
         {
-            this.nextStatus = status;
+            nextStatuses.Add(status);
         }
 
         private void UpdateStatusInfo()
