@@ -1,9 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using ArtificialIntelligenceGraphChallenge;
+﻿using ArtificialIntelligenceGraphChallenge;
 
 Graph graph = new Graph();
-
-Console.WriteLine("Graph is created!");
-
+graph.PrintOutTheGraph();
 graph.PrintOutAllStatuses();
