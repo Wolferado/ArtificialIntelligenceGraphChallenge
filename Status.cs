@@ -16,7 +16,7 @@ namespace ArtificialIntelligenceGraphChallenge
 
         // Lāpas degšanas laiks, kas tika izmantots.
         private int timeSpent = 0;
-        // Simbolu virkne, kas skaidro, kāds ir simbolisks stāvoklis.
+        // Simbolu virkne, kas skaidro, kāds ir stāvoklis.
         private string statusInfo = string.Empty;
 
         // Saraksts, kurš glab ceļotājus, kuri atrodas stāvokļa P1.
@@ -38,13 +38,14 @@ namespace ArtificialIntelligenceGraphChallenge
         /// <param name="status">Status that exists and would be used to get values for the new one.</param>
         public Status(Status? status)
         {
+            status.nextStatus = this;
             this.previousStatus = status;
             this.timeSpent = status.timeSpent;
             this.adventurersWaiting = new List<Adventurer>(status.adventurersWaiting);
             this.adventurersCrossed = new List<Adventurer>(status.adventurersCrossed);
         }
 
-        public void SetTimeSpent(int time)
+        public void SetTimeLeft(int time)
         {
             timeSpent = time;
             UpdateStatusInfo();
@@ -53,6 +54,11 @@ namespace ArtificialIntelligenceGraphChallenge
         public int GetTimeSpent()
         {
             return timeSpent;
+        }
+
+        public string GetNextStatus()
+        {
+            return nextStatus.GetStatusInfo();
         }
 
         public void SetNextStatus(Status status)

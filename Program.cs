@@ -4,6 +4,6 @@ using ArtificialIntelligenceGraphChallenge;
 
 Graph graph = new Graph();
 
+Console.WriteLine("Graph is created!");
 
-Console.WriteLine("Hello, World!");
-
+graph.PrintOutAllStatuses();
