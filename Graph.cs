@@ -13,14 +13,11 @@ namespace ArtificialIntelligenceGraphChallenge
         public Status startStatus;
         // Saraksts, kurš glāba visus stāvokļūs, kuri tika izveidoti (lai nebūtu dažādi mērķa stāvokli).
         public List<Status> listOfCreatedStatuses = new List<Status>();
-        // Lāpas degšanas laiks, kad lāpu var izmantot, lai šķersotu turpu-šurpu tilti.
-        private const int maxTimePossible = 12;
-
+   
         public Graph() 
         {
             CreateStartStatus();
             StartSpanning();
-            PrintOutAllStatuses();
         }
 
         // Sākuma stāvokļa izveide.
@@ -38,13 +35,11 @@ namespace ArtificialIntelligenceGraphChallenge
 
             Status start = new Status();
             start.adventurersWaiting = adventurers;
-            start.SetTimeSpent(0);
+            start.SetTimeSpent(12);
 
             this.startStatus = start;
 
             listOfCreatedStatuses.Add(startStatus);
-
-            Console.WriteLine("Start Status is created.");
         }
 
         // Visu iespējamo gadījumu izveide.
@@ -69,7 +64,7 @@ namespace ArtificialIntelligenceGraphChallenge
                 firstLayerStatus.adventurersWaiting.Remove(firstAdventurerToMove);
                 firstLayerStatus.adventurersWaiting.Remove(secondAdventurerToMove);
 
-                firstLayerStatus.SetTimeSpent(firstLayerStatus.GetTimeSpent() + GetTimeUponMoving(firstAdventurerToMove, secondAdventurerToMove));
+                firstLayerStatus.SetTimeSpent(firstLayerStatus.GetTimeSpent() - GetTimeUponMoving(firstAdventurerToMove, secondAdventurerToMove));
 
                 AddStatusToTheList(startStatus, firstLayerStatus);
 
@@ -83,7 +78,7 @@ namespace ArtificialIntelligenceGraphChallenge
                     secondLayerStatus.adventurersWaiting.Add(adventurerToGoBack);
                     secondLayerStatus.adventurersCrossed.Remove(adventurerToGoBack);
 
-                    secondLayerStatus.SetTimeSpent(secondLayerStatus.GetTimeSpent() + GetTimeUponMoving(adventurerToGoBack));
+                    secondLayerStatus.SetTimeSpent(secondLayerStatus.GetTimeSpent() - GetTimeUponMoving(adventurerToGoBack));
 
                     AddStatusToTheList(firstLayerStatus, secondLayerStatus);
 
@@ -99,7 +94,7 @@ namespace ArtificialIntelligenceGraphChallenge
                     thirdLayerStatus.adventurersWaiting.Remove(firstAdventurerToMove);
                     thirdLayerStatus.adventurersWaiting.Remove(secondAdventurerToMove);
 
-                    thirdLayerStatus.SetTimeSpent(thirdLayerStatus.GetTimeSpent() + GetTimeUponMoving(firstAdventurerToMove, secondAdventurerToMove));
+                    thirdLayerStatus.SetTimeSpent(thirdLayerStatus.GetTimeSpent() - GetTimeUponMoving(firstAdventurerToMove, secondAdventurerToMove));
 
                     AddStatusToTheList(secondLayerStatus, thirdLayerStatus);
                 }
@@ -137,7 +132,7 @@ namespace ArtificialIntelligenceGraphChallenge
         /// <param name="statusToAdd">Status that can be added, if list doesn't have it.</param>
         public void AddStatusToTheList(Status existingStatus, Status statusToAdd)
         {
-            if(statusToAdd.GetTimeSpent() > maxTimePossible)
+            if(statusToAdd.GetTimeSpent() <= 0)
                 return;
 
             foreach (Status status in listOfCreatedStatuses)
@@ -157,10 +152,27 @@ namespace ArtificialIntelligenceGraphChallenge
         /// </summary>
         public void PrintOutAllStatuses()
         {
+            Console.WriteLine("Visi stāvoķļi telpas stāvokļu grafā (pēc izveides momenta kārtas):");
             foreach(Status status in listOfCreatedStatuses)
             {
                 Console.WriteLine(status.GetStatusInfo());
             }
+        }
+
+        /// <summary>
+        /// Hardcoded method to print out the resulting graph. Viable for one and only possible graph.
+        /// </summary>
+        public void PrintOutTheGraph()
+        {
+            Console.WriteLine("Stāvokļu telpas grafs:");
+            Console.WriteLine("\t\t\t\t12;ABC;" +
+                "\n\t\t / \t\t | \t\t \\" +
+                "\n\t      7;A;BC\t\t9;C;AB\t\t7;B;AC" +
+                "\n\t        / \\ \t\t / \\ \t\t / \\" +
+                "\n\t  2;AC;B   4;AB;C   6;BC;A   8;AC;B  6;AB;C  2;BC;A" +
+                "\n \t\t\t\\  / \t\t \\  /" +
+                "\n\t\t\t 1;;ABC \t 3;;ABC");
+            Console.WriteLine();
         }
     }
 }
