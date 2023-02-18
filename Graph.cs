@@ -14,6 +14,7 @@ namespace ArtificialIntelligenceGraphChallenge
         // Saraksts, kurš glāba visus stāvokļus, kuri tika izveidoti.
         public List<Status> listOfCreatedStatuses = new List<Status>();
 
+
         /// <summary>
         /// Konstruktors grafam.
         /// </summary>
@@ -41,6 +42,7 @@ namespace ArtificialIntelligenceGraphChallenge
             Status start = new Status();
             start.adventurersWaiting = adventurers;
             start.SetTimeLeft(12);
+
 
             this.startStatus = start;
 
@@ -183,6 +185,7 @@ namespace ArtificialIntelligenceGraphChallenge
         public void PrintOutAllStatuses()
         {
             Console.WriteLine("Visi stāvokļi telpas stāvokļu grafā (pēc izveides momenta kārtas):");
+
             foreach(Status status in listOfCreatedStatuses)
             {
                 Console.WriteLine(status.GetStatusInfo());
@@ -191,6 +194,7 @@ namespace ArtificialIntelligenceGraphChallenge
 
         /// <summary>
         /// "Hardcode" metode, kas izvada grafu uz ekrāna. Derīgs tikai vienam un vienīgam grafam.
+
         /// </summary>
         public void PrintOutTheGraph()
         {
