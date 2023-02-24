@@ -21,7 +21,7 @@ namespace ArtificialIntelligenceGraphChallenge
 
         // Saraksts, kurš glab ceļotājus, kuri atrodas stāvokļa P1.
         public List<Adventurer> adventurersWaiting = new List<Adventurer>();
-        // Sarakss, kurš glab ceļotājus, kuri atrodas stāvokļa P2.
+        // Saraksts, kurš glab ceļotājus, kuri atrodas stāvokļa P2.
         public List<Adventurer> adventurersCrossed = new List<Adventurer>();
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace ArtificialIntelligenceGraphChallenge
         /// <param name="status">Stāvoklis, kas tiek izmantots, lai izveidotu jaunu stāvokli.</param>
         public Status(Status status)
         {
-            status.nextStatuses.Add(this);
+            //status.nextStatuses.Add(this);
             previousStatuses.Add(status);
             this.timeSpent = status.timeSpent;
             this.adventurersWaiting = new List<Adventurer>(status.adventurersWaiting);
@@ -62,15 +62,6 @@ namespace ArtificialIntelligenceGraphChallenge
         public int GetTimeSpent()
         {
             return timeSpent;
-        }
-
-        /// <summary>
-        /// Metode, lai iegūtu nākamo stāvokli (stāvokļus).
-        /// </summary>
-        /// <returns>Nākamais stāvoklis (stāvokli) sarakstā veidā.</returns>
-        public List<Status> GetNextStatus()
-        {
-            return nextStatuses;
         }
 
         /// <summary>
@@ -114,6 +105,21 @@ namespace ArtificialIntelligenceGraphChallenge
         public string GetStatusInfo()
         {
             return statusInfo;
+        }
+
+        /// <summary>
+        /// Metode, lai attēlotu stāvokli ar visiem tiem stāvokliem, kuri ietilpst "nākamie stāvokli" sarakstā.
+        /// </summary>
+        public void OutputNextStatuses()
+        {
+            string statuses = String.Empty;
+
+            foreach (Status status in nextStatuses)
+            {
+                statuses += "[" + status.GetStatusInfo() + "] ";
+            }
+            
+            Console.Write(String.Format(" {0} - {{ {1}}} \n", this.GetStatusInfo(), statuses)) ;
         }
     }
 }

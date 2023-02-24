@@ -14,7 +14,6 @@ namespace ArtificialIntelligenceGraphChallenge
         // Saraksts, kurš glāba visus stāvokļus, kuri tika izveidoti.
         public List<Status> listOfCreatedStatuses = new List<Status>();
 
-
         /// <summary>
         /// Konstruktors grafam.
         /// </summary>
@@ -43,7 +42,6 @@ namespace ArtificialIntelligenceGraphChallenge
             start.adventurersWaiting = adventurers;
             start.SetTimeLeft(12);
 
-
             this.startStatus = start;
 
             listOfCreatedStatuses.Add(startStatus);
@@ -58,7 +56,7 @@ namespace ArtificialIntelligenceGraphChallenge
             // P2 sākotnējais stāvoklis - 0 ceļotāji.
             // Laiks škērsošanai no P1 līdz P2 visiem 3 ceļotājiem - 12.
 
-            // 1. cikls - sadalījums pa ceļotājiem, kurš paliek P1 (pārējie 2 ceļotāji iet uz P2).
+            // 1. cikls - sadalījums pa ceļotājiem, kuri paliek P1 (pārējie 2 ceļotāji iet uz P2).
             for(int i = startStatus.adventurersWaiting.Count - 1; i >= 0; i--)
             {
                 Status firstLayerStatus = new Status(startStatus);
@@ -134,7 +132,7 @@ namespace ArtificialIntelligenceGraphChallenge
         }
 
         /// <summary>
-        /// Metode, lai iegūtu laiku, cik aizņems pārvietošana 2 ceļotājiem..
+        /// Metode, lai iegūtu laiku, cik aizņems pārvietošana 2 ceļotājiem.
         /// </summary>
         /// <param name="adv1">Pirmais ceļotājs, kuram jāpārvietojās.</param>
         /// <param name="adv2">Otrais ceļotājs, kuram jāpārvietojās.</param>
@@ -164,18 +162,21 @@ namespace ArtificialIntelligenceGraphChallenge
         /// <param name="statusToAdd">Stāvoklis, kas neeksistē, lai pievienotu.</param>
         public void AddStatusToTheList(Status existingStatus, Status statusToAdd)
         {
-            if(statusToAdd.GetTimeSpent() <= 0)
+            if(statusToAdd.GetTimeSpent() < 0)
                 return;
 
             foreach (Status status in listOfCreatedStatuses)
             {
+                // Ja eksistē tāds pats stāvoklis, tad parasti pievienot iepriekšējam stāvoklim eksistējošo.
                 if (status.GetStatusInfo() == statusToAdd.GetStatusInfo())
                 {
-                    existingStatus.AddNextStatus(statusToAdd);
+                    existingStatus.AddNextStatus(status);
                     return;
                 }
             }
 
+            // Pretēji - pievienot iepriekšējam jauno.
+            existingStatus.AddNextStatus(statusToAdd);
             listOfCreatedStatuses.Add(statusToAdd);
         }
 
@@ -187,14 +188,26 @@ namespace ArtificialIntelligenceGraphChallenge
             Console.WriteLine("Visi stāvokļi telpas stāvokļu grafā (pēc izveides momenta kārtas):");
 
             foreach(Status status in listOfCreatedStatuses)
-            {
-                Console.WriteLine(status.GetStatusInfo());
-            }
+                Console.WriteLine(" " + status.GetStatusInfo());
+
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Metode, kas attēlo visus stāvokļus ar stāvokļiem "nextStatuses" sarakstā.
+        /// </summary>
+        public void PrintOutInformationalStatuses()
+        {
+            Console.WriteLine("Visi stāvokļi telpas stāvokļu grafā (ar visiem nākamajiem stāvokļiem):");
+
+            foreach (Status status in listOfCreatedStatuses)
+                status.OutputNextStatuses();
+
+            Console.WriteLine();
         }
 
         /// <summary>
         /// "Hardcode" metode, kas izvada grafu uz ekrāna. Derīgs tikai vienam un vienīgam grafam.
-
         /// </summary>
         public void PrintOutTheGraph()
         {
