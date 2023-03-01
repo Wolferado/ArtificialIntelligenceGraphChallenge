@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace ArtificialIntelligenceGraphChallenge
 {
+    // Klase stāvokļa funckijām un operācijām.
     internal class Status
     {
         // Iepriekšējais stāvoklis grafam.
