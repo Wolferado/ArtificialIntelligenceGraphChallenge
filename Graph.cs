@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace ArtificialIntelligenceGraphChallenge
 {
+    // Klase grafa funkcijām un operācījām.
     internal class Graph
     {
         // Sākotnējais stāvoklis grafam.
