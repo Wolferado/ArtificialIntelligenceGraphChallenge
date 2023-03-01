@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ArtificialIntelligenceGraphChallenge
 {
-    // Klase, kura tiek izmantota kā paraugs ceļotājiem.
+    // Klase, kura tiek izmantota kā paraugs ceļotājiem, kuri šķerso tilti.
     internal class Adventurer
     {
         private int timeToCross { get; set; }
