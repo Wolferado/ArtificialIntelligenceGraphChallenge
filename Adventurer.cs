@@ -33,7 +33,6 @@ namespace ArtificialIntelligenceGraphChallenge
         }
     }
 
-    // Klase ceļotājam A.
     internal class Adventurer_A : Adventurer
     {
         public Adventurer_A()
@@ -43,7 +42,6 @@ namespace ArtificialIntelligenceGraphChallenge
         }
     }
 
-    // Klase ceļotājam B.
     internal class Adventurer_B : Adventurer
     {
         public Adventurer_B()
@@ -53,7 +51,6 @@ namespace ArtificialIntelligenceGraphChallenge
         }
     }
 
-    // Klase ceļotājam C.
     internal class Adventurer_C : Adventurer
     {
         public Adventurer_C()
